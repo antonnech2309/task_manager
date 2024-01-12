@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -29,3 +30,34 @@ class Worker(AbstractUser):
         return (f"{self.username} ({self.first_name} "
                 f"{self.last_name} {self.position.name})")
 
+
+class Task(models.Model):
+    URGENT = "UR"
+    HIGH = "HI"
+    MEDIUM = "ME"
+    LOW = "LO"
+    ROUTINE = "RO"
+    TASK_PRIORITY_CHOICES = {
+        URGENT: "Urgent",
+        HIGH: "High",
+        MEDIUM: "Medium",
+        LOW: "Low",
+        ROUTINE: "Routine",
+    }
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    deadline = models.DateTimeField()
+    is_completed = models.BooleanField()
+    priority = models.CharField(
+        max_length=2,
+        choices=TASK_PRIORITY_CHOICES,
+        default=ROUTINE
+    )
+    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
+    assignees = models.ManyToManyField(get_user_model(), related_name="tasks")
+
+    class Meta:
+        ordering = ["deadline"]
+
+    def __str__(self):
+        return f"{self.name} ({self.task_type.name} {self.priority}"
