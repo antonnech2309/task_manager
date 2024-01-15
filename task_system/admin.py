@@ -31,3 +31,18 @@ class WorkerAdmin(UserAdmin):
     )
 
     search_fields = ["first_name", "last_name"]
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "description",
+        "deadline",
+        "is_completed",
+        "priority",
+        "task_type",
+    ]
+    ordering = ["deadline"]
+    search_fields = ["name"]
+    list_filter = ["priority", "is_completed", "task_type"]
