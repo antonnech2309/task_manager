@@ -42,11 +42,11 @@ class Task(models.Model):
     LOW = "LO"
     ROUTINE = "RO"
     TASK_PRIORITY_CHOICES = {
-        URGENT: "Urgent",
-        HIGH: "High",
-        MEDIUM: "Medium",
-        LOW: "Low",
-        ROUTINE: "Routine",
+        (URGENT, "Urgent"),
+        (HIGH, "High"),
+        (MEDIUM, "Medium"),
+        (LOW, "Low"),
+        (ROUTINE, "Routine"),
     }
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -64,4 +64,4 @@ class Task(models.Model):
         ordering = ["deadline"]
 
     def __str__(self):
-        return f"{self.name} ({self.task_type.name} {self.priority})"
+        return f"{self.name} ({self.task_type.name} {self.priority}"
