@@ -62,3 +62,8 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = get_user_model()
     fields = ["first_name", "last_name", "position", "username", "email"]
     success_url = reverse_lazy("task_system:index")
+
+
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = get_user_model()
+    success_url = reverse_lazy("task_system:index")
