@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 
 from task_system.models import Position, TaskType, Task
 
@@ -46,3 +47,5 @@ class TaskAdmin(admin.ModelAdmin):
     ordering = ["deadline"]
     search_fields = ["name"]
     list_filter = ["priority", "is_completed", "task_type"]
+
+    admin.site.unregister(Group)
