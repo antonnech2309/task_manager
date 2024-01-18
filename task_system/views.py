@@ -17,8 +17,17 @@ def index(request):
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
-    percentage_all_tasks = round(num_active_tasks / num_tasks * 100)
-    percentage_user_tasks = round(num_user_active_tasks / num_user_tasks * 100)
+    percentage_all_tasks = 0
+    percentage_user_tasks = 0
+
+    if num_tasks != 0:
+        percentage_all_tasks = round(num_active_tasks / num_tasks * 100)
+
+    if num_user_tasks != 0:
+        percentage_user_tasks = round(
+            num_user_active_tasks /
+            num_user_tasks * 100
+        )
 
     context = {
         "num_tasks": num_tasks,
@@ -32,3 +41,7 @@ def index(request):
     }
 
     return render(request, "task_system/index.html", context=context)
+
+
+class WorkerDetailView(generic.DetailView):
+    model = get_user_model()
