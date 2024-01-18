@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from task_system.forms import WorkerCreationForm
@@ -55,3 +56,9 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = get_user_model()
     form_class = WorkerCreationForm
     success_url = "/"
+
+
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = get_user_model()
+    fields = ["first_name", "last_name", "position", "username", "email"]
+    success_url = reverse_lazy("task_system:index")
