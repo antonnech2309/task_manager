@@ -42,11 +42,11 @@ class Task(models.Model):
     LOW = "LO"
     ROUTINE = "RO"
     TASK_PRIORITY_CHOICES = {
-        URGENT: "Urgent",
-        HIGH: "High",
-        MEDIUM: "Medium",
-        LOW: "Low",
-        ROUTINE: "Routine",
+        (URGENT, "Urgent"),
+        (HIGH, "High"),
+        (MEDIUM, "Medium"),
+        (LOW, "Low"),
+        (ROUTINE, "Routine"),
     }
     name = models.CharField(max_length=255)
     description = models.TextField()
