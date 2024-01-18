@@ -1,10 +1,14 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
+from task_system.forms import WorkerCreationForm
 from task_system.models import Task
 
 
+@login_required
 def index(request):
     """View function for the home page of the site."""
 
@@ -43,5 +47,11 @@ def index(request):
     return render(request, "task_system/index.html", context=context)
 
 
-class WorkerDetailView(generic.DetailView):
+class WorkerDetailView(LoginRequiredMixin,generic.DetailView):
     model = get_user_model()
+
+
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = get_user_model()
+    form_class = WorkerCreationForm
+    success_url = "/"
