@@ -21,6 +21,11 @@ class TaskForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple
     )
 
+    deadline = forms.DateTimeField(
+        input_formats=["%Y-%m-%d %H:%M"],
+        widget=forms.DateTimeInput(attrs={"placeholder": "YYYY-MM-DD HH:MM"})
+    )
+
     class Meta:
         model = Task
         fields = "__all__"
