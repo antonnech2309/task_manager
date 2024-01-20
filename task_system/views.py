@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from task_system.forms import WorkerCreationForm, TaskForm
-from task_system.models import Task
+from task_system.models import Task, Position, TaskType
 
 
 @login_required
@@ -48,7 +48,7 @@ def index(request):
     return render(request, "task_system/index.html", context=context)
 
 
-class WorkerDetailView(LoginRequiredMixin,generic.DetailView):
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = get_user_model()
 
 
@@ -93,3 +93,47 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("task_system:task-list")
+
+
+class PositionListView(LoginRequiredMixin, generic.ListView):
+    model = Position
+    paginate_by = 5
+
+
+class PositionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("task_system:position-list")
+
+
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("task_system:position-list")
+
+
+class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy("task_system:position-list")
+
+
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    paginate_by = 5
+
+
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task_system:task-type-list")
+
+
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task_system:task-type-list")
+
+
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = TaskType
+    success_url = reverse_lazy("task_system:task-type-list")
