@@ -2,9 +2,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
-from task_system.forms import WorkerCreationForm
+from task_system.forms import WorkerCreationForm, TaskForm
 from task_system.models import Task
 
 
@@ -55,3 +56,40 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = get_user_model()
     form_class = WorkerCreationForm
     success_url = "/"
+
+
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = get_user_model()
+    fields = ["first_name", "last_name", "position", "username", "email"]
+    success_url = reverse_lazy("task_system:index")
+
+
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = get_user_model()
+    success_url = reverse_lazy("task_system:index")
+
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    paginate_by = 5
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    success_url = reverse_lazy("task_system:task-list")
+    form_class = TaskForm
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    success_url = reverse_lazy("task_system:task-list")
+    form_class = TaskForm
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("task_system:task-list")

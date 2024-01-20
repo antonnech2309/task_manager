@@ -2020,7 +2020,7 @@ textarea.form-control-lg {
   height: 1.23em;
   margin-top: 0.135em;
   vertical-align: top;
-  background-color: #fff;
+  background-color: rgba(40, 49, 73, 0.6);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
