@@ -7,7 +7,9 @@ from task_system.views import (
     WorkerUpdateView,
     WorkerDeleteView,
     TaskListView,
+    TaskUpdateView,
 )
+
 
 urlpatterns = [
     path("", index, name="index"),
@@ -28,6 +30,11 @@ urlpatterns = [
         name="worker-delete"
     ),
     path("tasks/", TaskListView.as_view(), name="task-list"),
+    path(
+        "tasks/<int:pk>/update/",
+        TaskUpdateView.as_view(),
+        name="task-update"
+    ),
 ]
 
 app_name = "task_system"
