@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card">
+        <div class="card-header pb-0 px-3">
+          <h6 class="mb-0">{{ task.name }}</h6>
+        </div>
+        <div class="card-body pt-4 p-3 list-group">
+            <div class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                <span class="mb-2 text-md">Description: <span class="text-dark font-weight-bold ms-sm-2">{{ task.description }}</span></span>
+                <span class="mb-2 text-md">Deadline: <span class="text-dark ms-sm-2 font-weight-bold">{{ task.deadline }}</span></span>
+                <span class="text-md">Status: <span class="text-dark ms-sm-2 font-weight-bold">{{ task.is_completed }}</span></span>
+                <span class="text-md">Priority: <span class="text-dark ms-sm-2 font-weight-bold">{{ task.priority }}</span></span>
+                <span class="text-md">Task_type: <span class="text-dark ms-sm-2 font-weight-bold">{{ task.task_type }}</span></span>
+                <span class="text-md">Assignees: <span class="text-dark ms-sm-2 font-weight-bold">
+                  {% for assignee in task.assignees.all %}
+                    {% if first_name and last_name %}
+                      {{ assignee.first_name }} {{ assignee.last_name }}
+                    {% else %}
+                      {{ assignee.username }}
+                    {% endif %}
+                    {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </span></span>
+              </div>
+              <div class="ms-auto text-end">
+                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{% url 'task_system:task-delete' pk=task.id%}"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                <a class="btn btn-link text-dark px-3 mb-0" href="{% url 'task_system:task-update' pk=task.id%}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
