@@ -8,6 +8,9 @@ from task_system.views import (
     WorkerDeleteView,
     TaskListView,
     TaskUpdateView,
+    TaskCreateView,
+    TaskDetailView,
+    TaskDeleteView,
 )
 
 
@@ -34,6 +37,17 @@ urlpatterns = [
         "tasks/<int:pk>/update/",
         TaskUpdateView.as_view(),
         name="task-update"
+    ),
+    path("tasks/create", TaskCreateView.as_view(), name="task-create"),
+    path(
+        "tasks/<int:pk>/detail",
+        TaskDetailView.as_view(),
+        name="task-detail"
+    ),
+    path(
+        "tasks/<int:pk>/delete",
+        TaskDeleteView.as_view(),
+        name="task-delete"
     ),
 ]
 
