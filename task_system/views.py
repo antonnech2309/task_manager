@@ -73,6 +73,17 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     paginate_by = 5
 
+    def get_queryset(self):
+        user = self.request.user
+        user_filter = self.request.GET.get('user', None)
+
+        if user_filter == 'all':
+            return Task.objects.all()
+        elif user_filter == 'mine':
+            return user.tasks.all()
+        else:
+            return Task.objects.all()
+
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
