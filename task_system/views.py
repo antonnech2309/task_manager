@@ -9,6 +9,10 @@ from task_system.forms import WorkerCreationForm, TaskForm
 from task_system.models import Task, Position, TaskType
 
 
+def round_to_5_or_0(number):
+    return round(number / 5) * 5
+
+
 @login_required
 def index(request):
     """View function for the home page of the site."""
@@ -18,7 +22,9 @@ def index(request):
     num_tasks = len(tasks)
     num_active_tasks = Task.objects.filter(is_completed=False).count()
     num_user_tasks = request.user.tasks.count()
-    num_user_active_tasks = request.user.tasks.filter(is_completed=False).count()
+    num_user_active_tasks = request.user.tasks.filter(
+        is_completed=False
+    ).count()
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
@@ -26,10 +32,12 @@ def index(request):
     percentage_user_tasks = 0
 
     if num_tasks != 0:
-        percentage_all_tasks = round(num_active_tasks / num_tasks * 100)
+        percentage_all_tasks = round_to_5_or_0(
+            num_active_tasks / num_tasks * 100
+        )
 
     if num_user_tasks != 0:
-        percentage_user_tasks = round(
+        percentage_user_tasks = round_to_5_or_0(
             num_user_active_tasks /
             num_user_tasks * 100
         )
@@ -45,7 +53,11 @@ def index(request):
         "num_user_active_tasks": num_user_active_tasks,
     }
 
-    return render(request, "task_system/index.html", context=context)
+    return render(
+        request,
+        "task_system/index.html",
+        context=context
+    )
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -67,6 +79,13 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = get_user_model()
     success_url = reverse_lazy("task_system:index")
+
+
+class WorkerListView(LoginRequiredMixin, generic.ListView):
+    model = get_user_model()
+    paginate_by = 5
+    template_name = "task_system/worker_list.html"
+    context_object_name = "worker_list"
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
