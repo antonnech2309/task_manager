@@ -11,8 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
 {% endblock %}
 
-{#{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }}#}
-{#    delete-confirmation{% endblock %}#}
+{% block title %}Delete account{% endblock %}
+
 {% block content %}
     <div class="row mt-5 mx-4">
         <div class="col-md-12">
