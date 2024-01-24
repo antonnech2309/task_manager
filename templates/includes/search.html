@@ -1,0 +1,11 @@
+{% load i18n static %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/forms.css' %}">
+{% endblock %}
+<div class="col-lg-3 col-md-3 my-sm-auto ms-sm-auto me-sm-0 mx-auto">
+  <form id="changelist-search" method="get" class="d-flex">
+    {{ search_form.as_p }}
+    <input class="btn btn-secondary" type="submit" value="Search">
+  </form>
+</div>
