@@ -105,7 +105,9 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = get_user_model().objects.all()
+        queryset = get_user_model().objects.all().select_related(
+            "position"
+        )
         form = WorkerUsernameSearchForm(self.request.GET)
 
         if form.is_valid():
@@ -122,12 +124,9 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         user = self.request.user
         user_filter = self.request.GET.get('user', None)
 
-        if user_filter == 'all':
-            return Task.objects.all()
-        elif user_filter == 'mine':
-            return user.tasks.all()
-        else:
-            return Task.objects.all()
+        if user_filter == 'mine':
+            return user.tasks.all().select_related("task_type")
+        return Task.objects.all().select_related("task_type")
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -144,6 +143,9 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
+    queryset = Task.objects.prefetch_related(
+        "assignees"
+    ).select_related("task_type")
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
