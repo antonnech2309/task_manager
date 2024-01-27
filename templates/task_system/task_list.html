@@ -1,13 +1,23 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 
+{% block title %}Tasks{% endblock %}
+
 {% block content %}
 <div class="container-fluid py-4">
   <div class="row">
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0 d-flex">
-          <h6>Tasks table</h6>
+          <h6 class="my-auto">Tasks table</h6>
+          <div class="col-xl-2 m-auto d-flex p-1 bg-transparent">
+            <div class="nav-item m-1">
+            <a class="nav-link p-1 border border-radius-md border-1" type="button" onclick="applyFilter('all')">All tasks</a>
+            </div>
+            <div class="nav-item m-1">
+              <a class="nav-link p-1  border border-radius-md border-1" type="button" onclick="applyFilter('mine')">Your tasks</a>
+            </div>
+          </div>
           <div class="col-lg-2 col-md-2 my-sm-auto ms-sm-auto me-sm-0 mx-auto">
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
@@ -87,6 +97,13 @@
       </div>
     </div>
   </div>
-
 </div>
+<script>
+  function applyFilter(userFilter) {
+    // Redirect to the current URL with the user filter as a query parameter
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('user', userFilter);
+    window.location.href = currentUrl.toString();
+  }
+</script>
   {% endblock content %}

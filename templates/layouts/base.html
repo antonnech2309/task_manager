@@ -10,7 +10,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>
-      Soft UI Dashboard - {% block title %}{% endblock %}
+      {% block title %}Task Manager{% endblock %}
     </title>
 
     <!-- Favicon -->
@@ -41,6 +41,9 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {% include "includes/navigation.html" %} 
         {% block content %}{% endblock content %}
+        {% block pagination %}
+          {% include "includes/pagination.html" %}
+        {% endblock %}
     </main>
 
     <!-- APP Configurator -->
@@ -48,6 +51,7 @@
 
 <!--   Core JS Files   -->
 {% include 'includes/scripts.html' %}
+
 
 
 {% block scripts %}{% endblock scripts %}

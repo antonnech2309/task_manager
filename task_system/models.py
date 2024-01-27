@@ -36,12 +36,17 @@ class Worker(AbstractUser):
 
 
 class Task(models.Model):
+    URGENT = "Urgent"
+    HIGH = "High"
+    MEDIUM = "Medium"
+    LOW = "Low"
+    ROUTINE = "Routine"
     TASK_PRIORITY_CHOICES = [
-        ("Urgent", "Urgent"),
-        ("High", "High"),
-        ("Medium", "Medium"),
-        ("Low", "Low"),
-        ("Routine", "Routine"),
+        (URGENT, "Urgent"),
+        (HIGH, "High"),
+        (MEDIUM, "Medium"),
+        (LOW, "Low"),
+        (ROUTINE, "Routine"),
     ]
 
     name = models.CharField(max_length=255)

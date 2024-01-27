@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Workers{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card">
+        <div class="card-header pb-0 px-3 d-flex">
+          <h6 class="m-2">Workers</h6>
+          {% include 'includes/search.html' %}
+        </div>
+        <div class="card-body pt-4 p-3">
+          <ul class="list-group">
+            {% for worker in worker_list %}
+            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                <h6 class="mb-3 text-sm">{{ worker.first_name }} {{ worker.last_name }}</h6>
+                <span class="mb-2 text-xs">Username: <span class="text-dark font-weight-bold ms-sm-2">{{ worker.username }}</span></span>
+                <span class="mb-2 text-xs">Position: <span class="text-dark font-weight-bold ms-sm-2">{{ worker.position.name }}</span></span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
