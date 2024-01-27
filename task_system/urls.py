@@ -48,7 +48,7 @@ urlpatterns = [
         TaskUpdateView.as_view(),
         name="task-update"
     ),
-    path("tasks/create", TaskCreateView.as_view(), name="task-create"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
     path(
         "tasks/<int:pk>/",
         TaskDetailView.as_view(),
