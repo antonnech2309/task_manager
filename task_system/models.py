@@ -64,4 +64,5 @@ class Task(models.Model):
         ordering = ["deadline"]
 
     def __str__(self):
-        return f"{self.name} ({self.task_type.name} {self.get_priority_display()})"
+        return (f"{self.name} ({self.task_type.name} "
+                f"{self.get_priority_display()})")

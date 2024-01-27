@@ -27,7 +27,7 @@ class PrivatePositionTest(TestCase):
         )
         self.client.force_login(self.user)
 
-        self.task_type =TaskType.objects.create(
+        self.task_type = TaskType.objects.create(
             name="test_task_type"
         )
         self.task = Task.objects.create(

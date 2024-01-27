@@ -85,19 +85,27 @@ class PrivateWorkerTest(TestCase):
         )
         self.assertRedirects(res, reverse("task_system:index"))
         self.assertTrue(
-            get_user_model().objects.filter(username="update_username").exists()
+            get_user_model().objects.filter(
+                username="update_username"
+            ).exists()
         )
         self.assertTrue(
-            get_user_model().objects.filter(position=self.update_position).exists()
+            get_user_model().objects.filter(
+                position=self.update_position
+            ).exists()
         )
         self.assertTrue(
-            get_user_model().objects.filter(email="update_email@gmail.com").exists()
+            get_user_model().objects.filter(
+                email="update_email@gmail.com"
+            ).exists()
         )
         self.assertTrue(
             get_user_model().objects.filter(first_name="update_name").exists()
         )
         self.assertTrue(
-            get_user_model().objects.filter(last_name="update_lastname").exists()
+            get_user_model().objects.filter(
+                last_name="update_lastname"
+            ).exists()
         )
 
     def test_delete_worker(self):
