@@ -53,7 +53,6 @@
       <li class="nav-item">
 
         {% if request.user.is_superuser %}
-        <a href="{% url 'admin:index' %}" class="nav-link {% if 'index' in segment %} active {% endif %}">
         {% else %}
         <a href="{% url 'task_system:index' %}" class="nav-link {% if 'index' in segment %} active {% endif %}">
         {% endif %}
@@ -74,7 +73,6 @@
             </svg>
           </div>
         {% if request.user.is_superuser %}
-        <span class="nav-link-text ms-1">{% trans 'Recent activity' %}</span>
         {% else %}
         <span class="nav-link-text ms-1">{% trans 'Main page' %}</span>
         {% endif %}
