@@ -2,6 +2,15 @@
 
 **Task Manager** is a simple web application built with Django for managing tasks and to-do lists.
 
+# Deployed version
+https://task-manager-8mr4.onrender.com
+
+# User for testing
+```
+login: user
+password: user12345
+```
+
 ## Installing / Getting started
 
 ```shell
